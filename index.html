@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nova Feet - Step into power with stylish and premium footwear. Quality shoes at competitive prices in New Zealand.">
+    <meta property="og:title" content="Nova Feet – Stylish & Affordable Shoes NZ">
+    <meta property="og:description" content="Step into power with Nova Feet. Quality footwear for men, women, and kids at competitive prices.">
+    <meta property="og:type" content="website">
+    <title>Nova Feet – Stylish & Affordable Shoes NZ</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="Logo/LOGO.jpg" alt="Nova Feet Logo" class="nav-logo">
+                <h1>Nova Feet</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#catalog" class="nav-link">Catalog</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <img src="Logo/LOGO.jpg" alt="Nova Feet Logo" class="hero-logo">
+            <h2 class="hero-title">Step into Power</h2>
+            <p class="hero-subtitle">Discover premium footwear that embodies strength, style, and confidence</p>
+            <a href="#catalog" class="btn btn-primary">View Collection</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Nova Feet</h2>
+            <div class="about-content">
+                <p class="about-text">
+                    Founded in the heart of New Zealand, Nova Feet began with a simple mission: to make stylish, 
+                    high-quality footwear accessible to everyone. We believe that great shoes shouldn't break the bank. 
+                    That's why we carefully curate our collection to bring you the latest trends from trusted brands 
+                    at prices that make sense.
+                </p>
+                <p class="about-text">
+                    Whether you're looking for everyday comfort, athletic performance, or statement pieces, 
+                    Nova Feet has something special for every member of your family.
+                </p>
+                <div class="highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">✓</div>
+                        <h3>Quality Materials</h3>
+                        <p>Premium construction and durable materials in every pair</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">✓</div>
+                        <h3>Affordable Pricing</h3>
+                        <p>Great value without compromising on style or comfort</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">✓</div>
+                        <h3>Trendy Designs</h3>
+                        <p>Stay ahead with the latest styles and seasonal collections</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog" class="catalog">
+        <div class="container">
+            <h2 class="section-title">Our Collection</h2>
+            
+            <!-- Search and Filter -->
+            <div class="catalog-controls">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search by brand or name..."
+                >
+                <div class="category-filters" id="categoryFilters">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Product Count -->
+            <div class="product-count" id="productCount">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading" id="loading">
+                <p>Loading products...</p>
+            </div>
+
+            <!-- Error State -->
+            <div class="error" id="error" style="display: none;">
+                <p>Unable to load products. Please try again later.</p>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid" id="productGrid">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <p>No products found matching your criteria.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-card">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <a href="mailto:Novafeetnz@gmail.com">Novafeetnz@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Phone</h3>
+                        <a href="tel:0224320269">022 432 0269</a>
+                    </div>
+                    <div class="contact-item">
+                        <h3>WhatsApp</h3>
+                        <a href="https://wa.me/640224320269" target="_blank">Message us on WhatsApp</a>
+                    </div>
+                </div>
+                <p class="contact-note">Have questions about our products? We're here to help!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Nova Feet</h3>
+                    <p>Step into Power</p>
+                </div>
+                <div class="footer-contact">
+                    <p>Email: <a href="mailto:Novafeetnz@gmail.com">Novafeetnz@gmail.com</a></p>
+                    <p>Phone: <a href="tel:0224320269">022 432 0269</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nova Feet. All rights reserved. New Zealand.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-gallery">
+                    <img id="modalMainImage" src="" alt="" class="modal-main-image">
+                    <div id="modalThumbnails" class="modal-thumbnails">
+                        <!-- Thumbnails generated dynamically -->
+                    </div>
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalBrand" class="modal-brand"></h2>
+                    <h3 id="modalName" class="modal-name"></h3>
+                    <p id="modalPrice" class="modal-price"></p>
+                    
+                    <div id="modalDescription" class="modal-description">
+                        <!-- Description -->
+                    </div>
+                    
+                    <div id="modalSizes" class="modal-sizes">
+                        <h4>Available Sizes:</h4>
+                        <div id="modalSizeList" class="size-list">
+                            <!-- Sizes generated dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div id="modalNotes" class="modal-notes">
+                        <h4>Product Notes:</h4>
+                        <ul id="modalNotesList">
+                            <!-- Notes generated dynamically -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

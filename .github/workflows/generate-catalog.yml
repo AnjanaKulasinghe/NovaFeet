@@ -1,0 +1,50 @@
+name: Generate Product Catalog
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'catalog/**'
+  workflow_dispatch:
+
+jobs:
+  generate-catalog:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Generate products.json
+        run: node scripts/generate-products.js
+      
+      - name: Check if products.json changed
+        id: check_changes
+        run: |
+          if git diff --quiet data/products.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/products.json
+          git commit -m "🤖 Auto-update product catalog"
+          git push
+      
+      - name: No changes detected
+        if: steps.check_changes.outputs.changed == 'false'
+        run: echo "No changes to products.json"
