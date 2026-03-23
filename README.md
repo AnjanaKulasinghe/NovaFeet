@@ -359,7 +359,78 @@ This will scan `/catalog` and update `data/products.json`.
 
 ---
 
-## 🐛 Troubleshooting
+## �️ Image Optimization for Faster Loading
+
+Your website includes lazy loading and shimmer effects, but optimizing images before upload is crucial for performance:
+
+### **Recommended Image Specifications**
+
+- **Format:** WebP (best compression) or JPEG (widely supported)
+- **Dimensions:** 800x800px to 1200x1200px (product images)
+- **File size:** Under 200KB per image (ideally 50-150KB)
+- **Quality:** 75-85% compression (good balance)
+
+### **Quick Optimization Tools**
+
+**Online Tools (Free):**
+1. **TinyPNG** - https://tinypng.com/
+   - Drag & drop images
+   - Compresses without visible quality loss
+   - Supports PNG and JPEG
+
+2. **Squoosh** - https://squoosh.app/
+   - Google's image optimizer
+   - Real-time preview
+   - Convert to WebP format
+
+3. **ImageOptim** (Mac) - https://imageoptim.com/
+   - Desktop app
+   - Batch processing
+   - Lossless compression
+
+**Command Line (Bulk Processing):**
+
+```bash
+# Install ImageMagick (Mac)
+brew install imagemagick
+
+# Optimize all images in a folder
+for img in *.{jpg,png}; do
+  convert "$img" -resize 1000x1000\> -quality 80 "optimized-$img"
+done
+
+# Convert to WebP
+for img in *.jpg; do
+  cwebp -q 80 "$img" -o "${img%.jpg}.webp"
+done
+```
+
+### **Before Uploading Checklist**
+
+- ✅ Resize to appropriate dimensions (800-1200px)
+- ✅ Compress to under 200KB
+- ✅ Remove metadata (EXIF data)
+- ✅ Use descriptive filenames following naming convention
+- ✅ Test on slow connection
+
+### **Performance Features Already Built-In**
+
+Your site automatically includes:
+- ✨ **Lazy loading** - Images load as they come into viewport
+- 📊 **Shimmer placeholders** - Animated loading skeleton
+- 🔄 **Smooth transitions** - Fade-in effect when loaded
+- 📱 **Responsive images** - Optimized display on all devices
+
+### **Monitoring Performance**
+
+Test your site speed:
+- **PageSpeed Insights:** https://pagespeed.web.dev/
+- **GTmetrix:** https://gtmetrix.com/
+- Target: < 3 seconds load time on 4G
+
+---
+
+## �🐛 Troubleshooting
 
 ### Products not showing?
 1. Check browser console for errors (F12)

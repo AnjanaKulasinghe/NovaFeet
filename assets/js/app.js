@@ -153,16 +153,19 @@ function createProductCard(product) {
     const primaryImage = product.primaryImage || images[0];
     const hasMultipleImages = images.length > 1;
     
-    // Build image carousel HTML
+    // Build image carousel HTML with lazy loading
     let imageHTML = '';
     if (hasMultipleImages) {
         imageHTML = `
             <div class="product-image-container">
+                <div class="image-placeholder"></div>
                 <img 
                     src="${primaryImage}" 
                     alt="${product.brand} ${product.name}" 
                     class="product-image"
+                    loading="lazy"
                     onerror="this.src='https://via.placeholder.com/280x280?text=No+Image'"
+                    onload="this.classList.add('loaded')"
                     data-images='${JSON.stringify(images)}'
                     data-current-index="0"
                 >
@@ -173,12 +176,17 @@ function createProductCard(product) {
         `;
     } else {
         imageHTML = `
-            <img 
-                src="${primaryImage}" 
-                alt="${product.brand} ${product.name}" 
-                class="product-image"
-                onerror="this.src='https://via.placeholder.com/280x280?text=No+Image'"
-            >
+            <div class="product-image-container">
+                <div class="image-placeholder"></div>
+                <img 
+                    src="${primaryImage}" 
+                    alt="${product.brand} ${product.name}" 
+                    class="product-image"
+                    loading="lazy"
+                    onerror="this.src='https://via.placeholder.com/280x280?text=No+Image'"
+                    onload="this.classList.add('loaded')"
+                >
+            </div>
         `;
     }
     
@@ -365,9 +373,17 @@ const modalbody = document.querySelector('.modal-body');
 function openProductModal(product) {
     const images = product.images || [product.image || product.primaryImage];
     
-    // Set main image
-    document.getElementById('modalMainImage').src = images[0];
-    document.getElementById('modalMainImage').alt = `${product.brand} ${product.name}`;
+    const modalMainImage = document.getElementById('modalMainImage');
+    
+    // Show loading state
+    modalMainImage.classList.remove('loaded');
+    modalMainImage.src = images[0];
+    modalMainImage.alt = `${product.brand} ${product.name}`;
+    
+    // Add load event
+    modalMainImage.onload = function() {
+        this.classList.add('loaded');
+    };
     
     // Set thumbnails
     const thumbnailsContainer = document.getElementById('modalThumbnails');
@@ -379,8 +395,13 @@ function openProductModal(product) {
             thumb.src = img;
             thumb.alt = `View ${index + 1}`;
             thumb.className = `modal-thumbnail ${index === 0 ? 'active' : ''}`;
+            thumb.loading = 'lazy'; // Lazy load thumbnails
             thumb.addEventListener('click', () => {
-                document.getElementById('modalMainImage').src = img;
+                modalMainImage.classList.remove('loaded');
+                modalMainImage.src = img;
+                modalMainImage.onload = function() {
+                    this.classList.add('loaded');
+                };
                 thumbnailsContainer.querySelectorAll('.modal-thumbnail').forEach(t => t.classList.remove('active'));
                 thumb.classList.add('active');
             });
