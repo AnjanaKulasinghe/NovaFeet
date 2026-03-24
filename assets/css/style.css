@@ -118,7 +118,11 @@ section {
     display: flex;
     align-items: flex-end;
     justify-content: center;
+<<<<<<< HEAD
     background: url('../../../NowaFeet/banner/banner.webp') center center / cover no-repeat;
+=======
+    background: url('../../banner/banner.webp') center center / cover no-repeat;
+>>>>>>> f15018c (Fix banner image path)
     background-attachment: scroll;
     position: relative;
     overflow: hidden;
