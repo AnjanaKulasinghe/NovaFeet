@@ -10,14 +10,14 @@
     <meta property="og:description"
         content="Step into power with Nova Feet. Quality footwear for men, women, and kids at competitive prices.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="Logo/LOGO.jpg">
+    <meta property="og:image" content="logo/Logo.png">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="Logo/LOGO.jpg">
-    <link rel="apple-touch-icon" href="Logo/LOGO.jpg">
+    <link rel="icon" type="image/jpeg" href="logo/Logo.png">
+    <link rel="apple-touch-icon" href="logo/Logo.png">
 
     <title>Nova Feet – Stylish & Affordable Shoes NZ</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=8.0">
 </head>
 
 <body>
@@ -25,10 +25,18 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-brand">
-                <img src="Logo/LOGO.jpg" alt="Nova Feet Logo" class="nav-logo">
+                <img src="logo/Logo.png" alt="Nova Feet Logo" class="nav-logo">
                 <h1>Nova Feet</h1>
             </div>
-            <ul class="nav-menu">
+            
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#catalog" class="nav-link">Catalog</a></li>
@@ -113,6 +121,11 @@
                 <!-- Dynamically populated -->
             </div>
 
+            <!-- See More Button -->
+            <div class="see-more-container" id="seeMoreContainer" style="display: none;">
+                <button id="seeMoreBtn" class="btn btn-primary see-more-btn">See More Products</button>
+            </div>
+
             <!-- Empty State -->
             <div class="empty-state" id="emptyState" style="display: none;">
                 <p>No products found matching your criteria.</p>
@@ -146,7 +159,9 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3>Nova Feet</h3>
-                    <p>Step into Power</p>
+                    <p class="footer-tagline">Step into Power</p>
+                    <p class="footer-description">Quality footwear for every step of your journey. Based in New Zealand,
+                        serving style and comfort nationwide.</p>
                 </div>
                 <div class="footer-contact">
                     <p>Email: <a href="mailto:Novafeetnz@gmail.com">Novafeetnz@gmail.com</a></p>
@@ -155,6 +170,8 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Nova Feet. All rights reserved. New Zealand.</p>
+                <p class="footer-powered">Powered by <a href="https://KoungaSolutions.co.nz" target="_blank"
+                        rel="noopener">Kounga Solutions</a></p>
             </div>
         </div>
     </footer>
@@ -197,7 +214,7 @@
         </div>
     </div>
 
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/app.js?v=3.0"></script>
 </body>
 
 </html>

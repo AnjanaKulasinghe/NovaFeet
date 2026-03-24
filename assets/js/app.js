@@ -5,6 +5,8 @@
 let allProducts = [];
 let filteredProducts = [];
 let currentCategory = 'all';
+let displayedProductsCount = 0;
+const PRODUCTS_PER_PAGE = 8;
 
 const productGrid = document.getElementById('productGrid');
 const categoryFilters = document.getElementById('categoryFilters');
@@ -13,6 +15,8 @@ const productCount = document.getElementById('productCount');
 const loading = document.getElementById('loading');
 const error = document.getElementById('error');
 const emptyState = document.getElementById('emptyState');
+const seeMoreContainer = document.getElementById('seeMoreContainer');
+const seeMoreBtn = document.getElementById('seeMoreBtn');
 
 // ===========================
 // INITIALIZE APP
@@ -31,22 +35,22 @@ async function loadProducts() {
     try {
         loading.style.display = 'block';
         error.style.display = 'none';
-        
+
         const response = await fetch('data/products.json');
-        
+
         if (!response.ok) {
             throw new Error('Failed to fetch products');
         }
-        
+
         allProducts = await response.json();
         filteredProducts = allProducts;
-        
+
         loading.style.display = 'none';
-        
+
         renderCategoryFilters();
         renderProducts();
         updateProductCount();
-        
+
     } catch (err) {
         console.error('Error loading products:', err);
         loading.style.display = 'none';
@@ -61,21 +65,21 @@ async function loadProducts() {
 function renderCategoryFilters() {
     // Extract unique categories
     const categories = ['all', ...new Set(allProducts.map(product => product.category))];
-    
+
     categoryFilters.innerHTML = '';
-    
+
     categories.forEach(category => {
         const button = document.createElement('button');
         button.className = `filter-btn ${category === currentCategory ? 'active' : ''}`;
         button.textContent = category === 'all' ? 'All' : category;
         button.dataset.category = category;
-        
+
         button.addEventListener('click', () => {
             currentCategory = category;
             filterProducts();
             updateActiveFilter();
         });
-        
+
         categoryFilters.appendChild(button);
     });
 }
@@ -101,19 +105,21 @@ function updateActiveFilter() {
 
 function filterProducts() {
     const searchTerm = searchInput.value.toLowerCase().trim();
-    
+
     filteredProducts = allProducts.filter(product => {
         // Category filter
         const matchesCategory = currentCategory === 'all' || product.category === currentCategory;
-        
+
         // Search filter (brand or name)
-        const matchesSearch = searchTerm === '' || 
+        const matchesSearch = searchTerm === '' ||
             product.brand.toLowerCase().includes(searchTerm) ||
             product.name.toLowerCase().includes(searchTerm);
-        
+
         return matchesCategory && matchesSearch;
     });
-    
+
+    // Reset pagination when filter changes
+    displayedProductsCount = 0;
     renderProducts();
     updateProductCount();
 }
@@ -123,19 +129,40 @@ function filterProducts() {
 // ===========================
 
 function renderProducts() {
-    productGrid.innerHTML = '';
-    
+    // If this is the first render, clear the grid
+    if (displayedProductsCount === 0) {
+        productGrid.innerHTML = '';
+    }
+
     if (filteredProducts.length === 0) {
         emptyState.style.display = 'block';
+        seeMoreContainer.style.display = 'none';
         return;
     }
-    
+
     emptyState.style.display = 'none';
-    
-    filteredProducts.forEach(product => {
-        const card = createProductCard(product);
+
+    // Calculate how many products to show
+    const productsToShow = Math.min(
+        displayedProductsCount + PRODUCTS_PER_PAGE,
+        filteredProducts.length
+    );
+
+    // Render new products
+    for (let i = displayedProductsCount; i < productsToShow; i++) {
+        const card = createProductCard(filteredProducts[i]);
         productGrid.appendChild(card);
-    });
+    }
+
+    // Update displayed count
+    displayedProductsCount = productsToShow;
+
+    // Show/hide see more button
+    if (displayedProductsCount < filteredProducts.length) {
+        seeMoreContainer.style.display = 'flex';
+    } else {
+        seeMoreContainer.style.display = 'none';
+    }
 }
 
 // ===========================
@@ -145,14 +172,14 @@ function renderProducts() {
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
-    
+
     const formattedPrice = formatPrice(product.price, product.currency);
-    
+
     // Handle both single image (legacy) and multiple images
     const images = product.images || [product.image || product.primaryImage];
     const primaryImage = product.primaryImage || images[0];
     const hasMultipleImages = images.length > 1;
-    
+
     // Build image carousel HTML with lazy loading
     let imageHTML = '';
     if (hasMultipleImages) {
@@ -189,7 +216,7 @@ function createProductCard(product) {
             </div>
         `;
     }
-    
+
     card.innerHTML = `
         ${imageHTML}
         <div class="product-info">
@@ -198,17 +225,17 @@ function createProductCard(product) {
             <div class="product-price">${formattedPrice}</div>
         </div>
     `;
-    
+
     // Add carousel functionality for multi-image products
     if (hasMultipleImages) {
         setupImageCarousel(card, images);
     }
-    
+
     // Add click event to open modal
     card.addEventListener('click', () => {
         openProductModal(product);
     });
-    
+
     return card;
 }
 
@@ -230,29 +257,29 @@ function setupImageCarousel(card, images) {
     const dots = card.querySelectorAll('.dot');
     let currentIndex = 0;
     let autoPlayInterval;
-    
+
     function showImage(index) {
         currentIndex = index;
         img.src = images[index];
         img.dataset.currentIndex = index;
-        
+
         // Update dots
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
         });
     }
-    
+
     function nextImage() {
         const nextIndex = (currentIndex + 1) % images.length;
         showImage(nextIndex);
     }
-    
+
     // Click image to cycle through
     img.addEventListener('click', (e) => {
         e.stopPropagation();
         nextImage();
     });
-    
+
     // Click dots to jump to specific image
     dots.forEach(dot => {
         dot.addEventListener('click', (e) => {
@@ -261,12 +288,12 @@ function setupImageCarousel(card, images) {
             showImage(index);
         });
     });
-    
+
     // Auto-play on hover (optional)
     card.addEventListener('mouseenter', () => {
         autoPlayInterval = setInterval(nextImage, 2000);
     });
-    
+
     card.addEventListener('mouseleave', () => {
         clearInterval(autoPlayInterval);
         showImage(0); // Reset to first image
@@ -280,7 +307,7 @@ function setupImageCarousel(card, images) {
 function updateProductCount() {
     const count = filteredProducts.length;
     const total = allProducts.length;
-    
+
     if (currentCategory === 'all' && searchInput.value === '') {
         productCount.textContent = `Showing all ${total} products`;
     } else {
@@ -308,6 +335,54 @@ function escapeHtml(text) {
 // ===========================
 
 function setupEventListeners() {
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    const heroSection = document.getElementById('home');
+    
+    window.addEventListener('scroll', () => {
+        if (heroSection) {
+            const heroHeight = heroSection.offsetHeight;
+            const scrollPosition = window.scrollY;
+            
+            // Add 'scrolled' class when scrolled past 80% of hero section
+            if (scrollPosition > heroHeight * 0.8) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+    });
+    
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        // Close menu when clicking on a nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+    
     // Search input with debounce
     let searchTimeout;
     searchInput.addEventListener('input', () => {
@@ -316,14 +391,28 @@ function setupEventListeners() {
             filterProducts();
         }, 300);
     });
-    
+
+    // See More button
+    seeMoreBtn.addEventListener('click', () => {
+        renderProducts();
+        updateProductCount();
+
+        // Smooth scroll to show new products
+        setTimeout(() => {
+            const lastVisibleCard = productGrid.children[displayedProductsCount - PRODUCTS_PER_PAGE];
+            if (lastVisibleCard) {
+                lastVisibleCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 100);
+    });
+
     // Smooth scroll for navigation links
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetId = link.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 targetSection.scrollIntoView({
                     behavior: 'smooth',
@@ -332,14 +421,14 @@ function setupEventListeners() {
             }
         });
     });
-    
+
     // Smooth scroll for CTA button
     const ctaButton = document.querySelector('.btn-primary');
     if (ctaButton) {
         ctaButton.addEventListener('click', (e) => {
             e.preventDefault();
             const catalogSection = document.querySelector('#catalog');
-            
+
             if (catalogSection) {
                 catalogSection.scrollIntoView({
                     behavior: 'smooth',
@@ -372,23 +461,23 @@ const modalbody = document.querySelector('.modal-body');
 
 function openProductModal(product) {
     const images = product.images || [product.image || product.primaryImage];
-    
+
     const modalMainImage = document.getElementById('modalMainImage');
-    
+
     // Show loading state
     modalMainImage.classList.remove('loaded');
     modalMainImage.src = images[0];
     modalMainImage.alt = `${product.brand} ${product.name}`;
-    
+
     // Add load event
-    modalMainImage.onload = function() {
+    modalMainImage.onload = function () {
         this.classList.add('loaded');
     };
-    
+
     // Set thumbnails
     const thumbnailsContainer = document.getElementById('modalThumbnails');
     thumbnailsContainer.innerHTML = '';
-    
+
     if (images.length > 1) {
         images.forEach((img, index) => {
             const thumb = document.createElement('img');
@@ -399,7 +488,7 @@ function openProductModal(product) {
             thumb.addEventListener('click', () => {
                 modalMainImage.classList.remove('loaded');
                 modalMainImage.src = img;
-                modalMainImage.onload = function() {
+                modalMainImage.onload = function () {
                     this.classList.add('loaded');
                 };
                 thumbnailsContainer.querySelectorAll('.modal-thumbnail').forEach(t => t.classList.remove('active'));
@@ -408,12 +497,12 @@ function openProductModal(product) {
             thumbnailsContainer.appendChild(thumb);
         });
     }
-    
+
     // Set product info
     document.getElementById('modalBrand').textContent = product.brand;
     document.getElementById('modalName').textContent = product.name;
     document.getElementById('modalPrice').textContent = formatPrice(product.price, product.currency);
-    
+
     // Set description
     const descContainer = document.getElementById('modalDescription');
     if (product.description) {
@@ -422,7 +511,7 @@ function openProductModal(product) {
     } else {
         descContainer.style.display = 'none';
     }
-    
+
     // Set sizes
     const sizesContainer = document.getElementById('modalSizes');
     const sizeList = document.getElementById('modalSizeList');
@@ -438,7 +527,7 @@ function openProductModal(product) {
     } else {
         sizesContainer.style.display = 'none';
     }
-    
+
     // Set notes
     const notesContainer = document.getElementById('modalNotes');
     const notesList = document.getElementById('modalNotesList');
@@ -453,7 +542,7 @@ function openProductModal(product) {
     } else {
         notesContainer.style.display = 'none';
     }
-    
+
     // Show modal
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';

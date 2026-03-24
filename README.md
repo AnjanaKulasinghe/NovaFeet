@@ -32,7 +32,7 @@ A modern, professional static business website for Nova Feet shoe brand. Feature
 NovaFeet/
 ├── index.html                 # Main website file
 ├── Logo/
-│   └── LOGO.jpg              # Brand logo (black & gold)
+│   └── Logo.png              # Brand logo (black & gold)
 ├── assets/
 │   ├── css/
 │   │   └── style.css         # All styles (black & gold theme)
