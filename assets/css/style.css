@@ -204,8 +204,7 @@ section {
    =========================== */
 
 .hero {
-    height: auto;
-    min-height: 70vh;
+    min-height: 100vh;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -770,14 +769,6 @@ section {
 /* ===========================
    RESPONSIVE DESIGN
    =========================== */
-
-/* Tablet and smaller screens - adjust background sizing */
-@media (max-width: 1024px) {
-    .hero {
-        background-size: 100% auto;
-        background-position: center top;
-    }
-}
 
 @media (max-width: 768px) {
     .hamburger {
