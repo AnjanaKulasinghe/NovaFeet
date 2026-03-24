@@ -118,7 +118,7 @@ section {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    background: url('../../../banner/banner.webp') center center / cover no-repeat;
+    background: url('../../../NowaFeet/banner/banner.webp') center center / cover no-repeat;
     background-attachment: scroll;
     position: relative;
     overflow: hidden;
