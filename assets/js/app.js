@@ -338,12 +338,12 @@ function setupEventListeners() {
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     const heroSection = document.getElementById('home');
-    
+
     window.addEventListener('scroll', () => {
         if (heroSection) {
             const heroHeight = heroSection.offsetHeight;
             const scrollPosition = window.scrollY;
-            
+
             // Add 'scrolled' class when scrolled past 80% of hero section
             if (scrollPosition > heroHeight * 0.8) {
                 navbar.classList.add('scrolled');
@@ -352,18 +352,18 @@ function setupEventListeners() {
             }
         }
     });
-    
+
     // Hamburger menu toggle
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
-    
+
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
         });
-        
+
         // Close menu when clicking on a nav link
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
@@ -372,7 +372,7 @@ function setupEventListeners() {
                 document.body.style.overflow = 'auto';
             });
         });
-        
+
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
@@ -382,7 +382,7 @@ function setupEventListeners() {
             }
         });
     }
-    
+
     // Search input with debounce
     let searchTimeout;
     searchInput.addEventListener('input', () => {

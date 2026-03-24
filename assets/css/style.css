@@ -783,7 +783,7 @@ section {
     .hamburger {
         display: flex;
     }
-    
+
     .nav-menu {
         position: fixed;
         top: 90px;
@@ -801,40 +801,40 @@ section {
         backdrop-filter: blur(10px);
         overflow-y: auto;
     }
-    
+
     .nav-menu.active {
         right: 0;
     }
-    
+
     .nav-menu li {
         width: 100%;
         padding: 15px 0;
         border-bottom: 1px solid rgba(201, 144, 44, 0.2);
     }
-    
+
     .nav-menu li:last-child {
         border-bottom: none;
     }
-    
+
     .nav-link {
         color: var(--text-dark) !important;
         text-shadow: none !important;
         font-size: 1.1rem;
         display: block;
     }
-    
+
     .navbar:not(.scrolled) .nav-menu {
         background: rgba(5, 6, 11, 0.98);
     }
-    
+
     .navbar:not(.scrolled) .nav-link {
         color: #ffffff !important;
     }
-    
+
     .nav-logo {
         height: 40px;
     }
-    
+
     .nav-brand h1 {
         font-size: 1.3rem;
     }
@@ -900,7 +900,7 @@ section {
     .hero-subtitle {
         font-size: 1rem;
     }
-    
+
     .hero {
         background-image: url('../../banner/mobile.webp');
         min-height: 50vh;
