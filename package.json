@@ -1,0 +1,13 @@
+{
+  "name": "nova-feet",
+  "version": "1.0.0",
+  "description": "Nova Feet - Stylish & Affordable Shoes NZ",
+  "scripts": {
+    "start": "npx serve .",
+    "generate": "node scripts/generate-products.js",
+    "update": "./update-catalog.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -63,13 +63,30 @@ function generateProductCatalog() {
                             primaryImage: productImage.imagePath
                         };
                         
-                        // Check for details file (using productKey without view identifier)
-                        const detailsFile = `${productImage.brand.toLowerCase().replace(/\s+/g, '-')}--${productImage.name.toLowerCase().replace(/\s+/g, '-')}--${productImage.price}.txt`;
-                        const detailsPath = path.join(categoryPath, detailsFile);
+                        // Check for details file
+                        // Try both formats: brand--name--price.txt and brand--price.txt
+                        const brandSlug = productImage.brand.toLowerCase().replace(/\s+/g, '-');
+                        const nameSlug = (productImage.name && productImage.name !== productImage.brand) 
+                            ? `--${productImage.name.toLowerCase().replace(/\s+/g, '-')}` 
+                            : '';
+                        const priceSlug = productImage.price.toFixed(2);
                         
-                        console.log(`   Looking for details: ${detailsFile}`);
+                        const detailsFiles = [
+                            `${brandSlug}${nameSlug}--${priceSlug}.txt`,
+                            `${brandSlug}--${priceSlug}.txt`
+                        ];
                         
-                        if (fs.existsSync(detailsPath)) {
+                        let detailsPath = null;
+                        for (const df of detailsFiles) {
+                            const dp = path.join(categoryPath, df);
+                            if (fs.existsSync(dp)) {
+                                detailsPath = dp;
+                                console.log(`   Found description: ${df}`);
+                                break;
+                            }
+                        }
+                        
+                        if (detailsPath) {
                             const details = parseProductDetails(detailsPath);
                             if (details) {
                                 product.description = details.description;
@@ -123,32 +140,59 @@ function parseProductFromFilename(filename, category) {
         // Split by delimiter '--'
         const parts = nameWithoutExt.split('--');
         
-        // Support both formats:
-        // brand--name--price.ext (3 parts)
-        // brand--name--price--view.ext (4 parts)
-        if (parts.length < 3 || parts.length > 4) {
-            console.warn(`Invalid format: ${filename} (expected: brand--name--price[--view].ext)`);
+        let brand, name, priceStr, view;
+
+        // Support various formats by checking where the price is
+        // Format A: brand--name--price--view (4 parts)
+        // Format B: brand--name--price (3 parts)
+        // Format C: brand--price--view (3 parts) - where parts[1] is a number
+        // Format D: brand--price (2 parts)
+
+        if (parts.length === 4) {
+            brand = parts[0];
+            name = parts[1];
+            priceStr = parts[2];
+            view = parts[3];
+        } else if (parts.length === 3) {
+            // Check if middle part is a number (Format C: brand--price--view)
+            const middleAsPrice = parseFloat(parts[1]);
+            if (!isNaN(middleAsPrice) && parts[1].includes('.')) {
+                brand = parts[0];
+                name = '';
+                priceStr = parts[1];
+                view = parts[2];
+            } else {
+                // Format B: brand--name--price
+                brand = parts[0];
+                name = parts[1];
+                priceStr = parts[2];
+                view = 'default';
+            }
+        } else if (parts.length === 2) {
+            brand = parts[0];
+            name = '';
+            priceStr = parts[1];
+            view = 'default';
+        } else {
+            console.warn(`⚠️  Invalid format: ${filename} (expected: brand--[name]--price[--view].ext)`);
             return null;
         }
-        
-        const brand = parts[0];
-        const name = parts[1];
-        const priceStr = parts[2];
-        const view = parts[3] || 'default'; // Optional view identifier
         
         // Validate price
         const price = parseFloat(priceStr);
         if (isNaN(price) || price <= 0) {
-            console.warn(`Invalid price in: ${filename}`);
+            console.warn(`⚠️  Invalid price "${priceStr}" in: ${filename}`);
             return null;
         }
         
         // Convert to title case
         const brandFormatted = toTitleCase(brand);
-        const nameFormatted = toTitleCase(name);
+        const nameFormatted = name ? toTitleCase(name) : '';
         
         // Generate unique product key (without view) for grouping
-        const productKey = `${category}-${brand}-${name}-${price}`.toLowerCase().replace(/\s+/g, '-');
+        // If name is empty, don't include extra hyphens
+        const nameSlug = name ? `-${name.toLowerCase().replace(/\s+/g, '-')}` : '';
+        const productKey = `${category}-${brand.toLowerCase().replace(/\s+/g, '-')}${nameSlug}-${price.toFixed(2)}`.replace(/-+/g, '-');
         
         // Generate unique ID
         const id = productKey;
@@ -161,7 +205,7 @@ function parseProductFromFilename(filename, category) {
             productKey,
             category,
             brand: brandFormatted,
-            name: nameFormatted,
+            name: nameFormatted || brandFormatted, // Use brand as name if name is empty
             price,
             currency: 'NZD',
             imagePath,
@@ -169,7 +213,7 @@ function parseProductFromFilename(filename, category) {
         };
         
     } catch (err) {
-        console.error(`Error parsing ${filename}:`, err.message);
+        console.error(`❌ Error parsing ${filename}:`, err.message);
         return null;
     }
 }

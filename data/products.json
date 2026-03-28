@@ -1,1 +1,205 @@
-[]
+[
+  {
+    "id": "mens-nova-120.00",
+    "category": "mens",
+    "brand": "Nova",
+    "name": "Nova",
+    "price": 120,
+    "currency": "NZD",
+    "images": [
+      "catalog/mens/Nova--120.00--closeup.png",
+      "catalog/mens/Nova--120.00--flip.png",
+      "catalog/mens/Nova--120.00--main.png",
+      "catalog/mens/Nova--120.00--side.png",
+      "catalog/mens/Nova--120.00--single.png",
+      "catalog/mens/Nova--120.00--top.png"
+    ],
+    "primaryImage": "catalog/mens/Nova--120.00--main.png",
+    "description": "Classic office shoe designed for professionals. Premium leather construction with cushioned insole for all-day comfort. Perfect for business meetings and formal occasions.",
+    "sizes": [
+      "41",
+      "43",
+      "44",
+      "45"
+    ],
+    "notes": [
+      "Genuine leather upper",
+      "Free shipping on orders over NZ$240",
+      "Limited stock available"
+    ]
+  },
+  {
+    "id": "mens-nova-brown-120.00",
+    "category": "mens",
+    "brand": "Nova Brown",
+    "name": "Nova Brown",
+    "price": 120,
+    "currency": "NZD",
+    "images": [
+      "catalog/mens/Nova-Brown--120.00--closeup.png",
+      "catalog/mens/Nova-Brown--120.00--flip.png",
+      "catalog/mens/Nova-Brown--120.00--main.png",
+      "catalog/mens/Nova-Brown--120.00--side.png",
+      "catalog/mens/Nova-Brown--120.00--single.png",
+      "catalog/mens/Nova-Brown--120.00--top.png"
+    ],
+    "primaryImage": "catalog/mens/Nova-Brown--120.00--main.png",
+    "description": "Classic office shoe designed for professionals. Premium leather construction with cushioned insole for all-day comfort. Perfect for business meetings and formal occasions.",
+    "sizes": [
+      "41",
+      "43",
+      "44",
+      "45"
+    ],
+    "notes": [
+      "Genuine leather upper",
+      "Free shipping on orders over NZ$240",
+      "Limited stock available"
+    ]
+  },
+  {
+    "id": "mens-nova-brown-smart-casual-120.00",
+    "category": "mens",
+    "brand": "Nova Brown Smart Casual",
+    "name": "Nova Brown Smart Casual",
+    "price": 120,
+    "currency": "NZD",
+    "images": [
+      "catalog/mens/Nova-Brown-Smart-Casual--120.00--closeup.png",
+      "catalog/mens/Nova-Brown-Smart-Casual--120.00--flip.png",
+      "catalog/mens/Nova-Brown-Smart-Casual--120.00--main.png",
+      "catalog/mens/Nova-Brown-Smart-Casual--120.00--side.png",
+      "catalog/mens/Nova-Brown-Smart-Casual--120.00--single.png",
+      "catalog/mens/Nova-Brown-Smart-Casual--120.00--top.png"
+    ],
+    "primaryImage": "catalog/mens/Nova-Brown-Smart-Casual--120.00--main.png",
+    "description": "Smart casual shoe designed for everyone. Premium leather construction with cushioned insole for all-day comfort. Perfect for any type of occasions.",
+    "sizes": [
+      "41",
+      "43",
+      "44",
+      "45"
+    ],
+    "notes": [
+      "Genuine leather upper",
+      "Free shipping on orders over NZ$240",
+      "Limited stock available"
+    ]
+  },
+  {
+    "id": "mens-nova-classic-120.00",
+    "category": "mens",
+    "brand": "Nova Classic",
+    "name": "Nova Classic",
+    "price": 120,
+    "currency": "NZD",
+    "images": [
+      "catalog/mens/Nova-Classic--120.00--closeup.png",
+      "catalog/mens/Nova-Classic--120.00--flip.png",
+      "catalog/mens/Nova-Classic--120.00--main.png",
+      "catalog/mens/Nova-Classic--120.00--side.png",
+      "catalog/mens/Nova-Classic--120.00--single.png",
+      "catalog/mens/Nova-Classic--120.00--top.png"
+    ],
+    "primaryImage": "catalog/mens/Nova-Classic--120.00--main.png",
+    "description": "Classic shoe designed for professionals. Premium leather construction with cushioned insole for all-day comfort. Perfect for any formal occasions.",
+    "sizes": [
+      "41",
+      "43",
+      "44",
+      "45"
+    ],
+    "notes": [
+      "Genuine leather upper",
+      "Free shipping on orders over NZ$240",
+      "Limited stock available"
+    ]
+  },
+  {
+    "id": "mens-nova-office-120.00",
+    "category": "mens",
+    "brand": "Nova Office",
+    "name": "Nova Office",
+    "price": 120,
+    "currency": "NZD",
+    "images": [
+      "catalog/mens/Nova-Office--120.00--closeup.png",
+      "catalog/mens/Nova-Office--120.00--flip.png",
+      "catalog/mens/Nova-Office--120.00--main.png",
+      "catalog/mens/Nova-Office--120.00--side.png",
+      "catalog/mens/Nova-Office--120.00--single.png",
+      "catalog/mens/Nova-Office--120.00--top.png"
+    ],
+    "primaryImage": "catalog/mens/Nova-Office--120.00--main.png",
+    "description": "Office shoe designed for professionals. Premium leather construction with cushioned insole for all-day comfort. Perfect for any formal occasions.",
+    "sizes": [
+      "41",
+      "43",
+      "44",
+      "45"
+    ],
+    "notes": [
+      "Genuine leather upper",
+      "Free shipping on orders over NZ$240",
+      "Limited stock available"
+    ]
+  },
+  {
+    "id": "mens-nova-office2-120.00",
+    "category": "mens",
+    "brand": "Nova Office2",
+    "name": "Nova Office2",
+    "price": 120,
+    "currency": "NZD",
+    "images": [
+      "catalog/mens/Nova-Office2--120.00--closeup.png",
+      "catalog/mens/Nova-Office2--120.00--flip.png",
+      "catalog/mens/Nova-Office2--120.00--main.png",
+      "catalog/mens/Nova-Office2--120.00--side.png",
+      "catalog/mens/Nova-Office2--120.00--single.png",
+      "catalog/mens/Nova-Office2--120.00--top.png"
+    ],
+    "primaryImage": "catalog/mens/Nova-Office2--120.00--main.png",
+    "description": "Office shoe designed for professionals. Premium leather construction with cushioned insole for all-day comfort. Perfect for any formal occasions.",
+    "sizes": [
+      "41",
+      "43",
+      "44",
+      "45"
+    ],
+    "notes": [
+      "Genuine leather upper",
+      "Free shipping on orders over NZ$240",
+      "Limited stock available"
+    ]
+  },
+  {
+    "id": "mens-nova-smart-casual-120.00",
+    "category": "mens",
+    "brand": "Nova Smart Casual",
+    "name": "Nova Smart Casual",
+    "price": 120,
+    "currency": "NZD",
+    "images": [
+      "catalog/mens/Nova-Smart-Casual--120.00--closeup.png",
+      "catalog/mens/Nova-Smart-Casual--120.00--flip.png",
+      "catalog/mens/Nova-Smart-Casual--120.00--main.png",
+      "catalog/mens/Nova-Smart-Casual--120.00--side.png",
+      "catalog/mens/Nova-Smart-Casual--120.00--single.png",
+      "catalog/mens/Nova-Smart-Casual--120.00--top.png"
+    ],
+    "primaryImage": "catalog/mens/Nova-Smart-Casual--120.00--main.png",
+    "description": "Smart casual shoe designed for everyone. Premium leather construction with cushioned insole for all-day comfort. Perfect for any type of occasions.",
+    "sizes": [
+      "41",
+      "43",
+      "44",
+      "45"
+    ],
+    "notes": [
+      "Genuine leather upper",
+      "Free shipping on orders over NZ$240",
+      "Limited stock available"
+    ]
+  }
+]
