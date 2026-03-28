@@ -78,10 +78,11 @@ function generateProductCatalog() {
                         
                         let detailsPath = null;
                         for (const df of detailsFiles) {
-                            const dp = path.join(categoryPath, df);
-                            if (fs.existsSync(dp)) {
-                                detailsPath = dp;
-                                console.log(`   Found description: ${df}`);
+                            // Find file case-insensitively in the original files list
+                            const actualFile = files.find(f => f.toLowerCase() === df.toLowerCase());
+                            if (actualFile) {
+                                detailsPath = path.join(categoryPath, actualFile);
+                                console.log(`   Found description: ${actualFile}`);
                                 break;
                             }
                         }
