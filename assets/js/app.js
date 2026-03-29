@@ -25,7 +25,30 @@ const seeMoreBtn = document.getElementById('seeMoreBtn');
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     setupEventListeners();
+    initScrollAnimations();
+    hidePageLoader();
+    initScrollProgress();
+    initBackToTop();
+    initCursorGlow();
 });
+
+// ===========================
+// PAGE LOADER
+// ===========================
+
+function hidePageLoader() {
+    const loader = document.getElementById('pageLoader');
+    if (loader) {
+        // Wait a bit to ensure content is ready
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            // Remove from DOM after animation
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }, 800);
+    }
+}
 
 // ===========================
 // FETCH PRODUCTS
@@ -569,3 +592,199 @@ document.addEventListener('keydown', (e) => {
         closeProductModal();
     }
 });
+
+// ===========================
+// SCROLL ANIMATIONS
+// ===========================
+
+function initScrollAnimations() {
+    // Intersection Observer for scroll animations - faster triggering
+    const observerOptions = {
+        threshold: 0.05, // Trigger when only 5% visible (faster)
+        rootMargin: '0px 0px 100px 0px' // Trigger 100px before entering viewport
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-visible');
+                // Optional: Unobserve after animation to improve performance
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll(
+        '.section-title, .about-text, .highlight-card, .product-card, .contact-card, .hero-content'
+    );
+
+    animateElements.forEach((el, index) => {
+        // Reduced animation distance and faster timing
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(15px)'; // Reduced from 30px
+        // Faster animations with minimal stagger
+        const staggerDelay = index < 4 ? index * 0.03 : 0.03; // Max 0.12s stagger
+        el.style.transition = `opacity 0.35s ease ${staggerDelay}s, transform 0.35s ease ${staggerDelay}s`;
+        observer.observe(el);
+    });
+
+    // Make elements visible when in viewport
+    const style = document.createElement('style');
+    style.textContent = `
+        .animate-visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Parallax effect for hero section (subtle)
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent && scrolled < window.innerHeight) {
+                heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+                heroContent.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+            }
+        });
+    }
+
+    // Add floating animation to product cards on hover
+    document.addEventListener('mousemove', (e) => {
+        const cards = document.querySelectorAll('.product-card:hover');
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            card.style.transform = `
+                translateY(-12px) scale(1.03) 
+                perspective(1000px) 
+                rotateX(${rotateX}deg) 
+                rotateY(${rotateY}deg)
+            `;
+        });
+    });
+
+    // Reset card transform when mouse leaves
+    document.addEventListener('mouseout', (e) => {
+        if (e.target.classList.contains('product-card')) {
+            e.target.style.transform = '';
+        }
+    });
+
+    // Add ripple effect to buttons
+    addRippleEffect();
+}
+
+// ===========================
+// RIPPLE EFFECT
+// ===========================
+
+function addRippleEffect() {
+    const buttons = document.querySelectorAll('.btn, .filter-btn');
+    
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Remove existing ripples
+            const existingRipple = this.querySelector('.ripple');
+            if (existingRipple) {
+                existingRipple.remove();
+            }
+
+            // Create ripple
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+
+            // Get click position
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            // Set ripple position and size
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+
+            // Remove ripple after animation
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+}
+
+// ===========================
+// SCROLL PROGRESS BAR
+// ===========================
+
+function initScrollProgress() {
+    const progressBar = document.getElementById('scrollProgress');
+    
+    if (!progressBar) return;
+    
+    window.addEventListener('scroll', () => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = window.scrollY;
+        const progress = (scrolled / documentHeight) * 100;
+        
+        progressBar.style.width = progress + '%';
+    });
+}
+
+// ===========================
+// BACK TO TOP BUTTON
+// ===========================
+
+function initBackToTop() {
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    if (!backToTopBtn) return;
+    
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+    
+    // Smooth scroll to top
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// ===========================
+// CURSOR GLOW EFFECT (Desktop only)
+// ===========================
+
+function initCursorGlow() {
+    // Only on desktop
+    if (window.innerWidth <= 768) return;
+    
+    // Activate cursor glow
+    document.body.classList.add('cursor-active');
+    
+    // Update cursor glow position smoothly
+    document.addEventListener('mousemove', (e) => {
+        document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
+        document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');
+    });
+}

@@ -23,6 +23,16 @@
     --border-color: #e5e7eb;
     --accent-color: #c9902c;
     --success-color: #c9902c;
+    
+    /* Modern gradients and effects */
+    --gradient-gold: linear-gradient(135deg, #c9902c 0%, #d4a03a 50%, #f4d06f 100%);
+    --gradient-dark: linear-gradient(135deg, #05060b 0%, #1a1b20 100%);
+    --gradient-light: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+    --shadow-gold: 0 8px 32px rgba(201, 144, 44, 0.3);
+    --glow-gold: 0 0 20px rgba(201, 144, 44, 0.4);
 }
 
 html {
@@ -35,6 +45,254 @@ body {
     color: var(--text-dark);
     background-color: var(--bg-white);
     overflow-x: hidden;
+}
+
+/* ===========================
+   PAGE LOADER
+   =========================== */
+
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(201, 144, 44, 0.2);
+    border-top: 4px solid var(--gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 30px rgba(201, 144, 44, 0.3);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-text {
+    color: var(--gold);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ===========================
+   SCROLL PROGRESS BAR
+   =========================== */
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, #f4d06f 100%);
+    z-index: 10000;
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px rgba(201, 144, 44, 0.5);
+}
+
+/* ===========================
+   BACK TO TOP BUTTON
+   =========================== */
+
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    border: none;
+    border-radius: 50%;
+    color: var(--black);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(201, 144, 44, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.back-to-top:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 6px 30px rgba(201, 144, 44, 0.6);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.back-to-top:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* ===========================
+   KEYFRAME ANIMATIONS
+   =========================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px); /* Reduced from 40px for faster feel */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-15px); /* Reduced from -40px */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(15px); /* Reduced from 40px */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(201, 144, 44, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(201, 144, 44, 0.8), 0 0 60px rgba(201, 144, 44, 0.4);
+    }
+}
+
+/* Apply animation utility classes */
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
 }
 
 .container {
@@ -56,6 +314,7 @@ section {
     position: relative;
     display: inline-block;
     width: 100%;
+    animation: fadeInUp 0.8s ease-out;
 }
 
 .section-title::after {
@@ -64,9 +323,11 @@ section {
     width: 100px;
     height: 4px;
     background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    background-size: 200% 100%;
     margin: 20px auto 0;
     border-radius: 2px;
     box-shadow: 0 2px 10px rgba(201, 144, 44, 0.4);
+    animation: gradient-shift 3s ease infinite, fadeIn 1.2s ease-out;
 }
 
 /* ===========================
@@ -87,10 +348,11 @@ section {
 
 /* Scrolled state - white background with dark text */
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 4px 30px rgba(201, 144, 44, 0.15), 0 2px 10px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px) saturate(180%);
     border-bottom: 2px solid rgba(201, 144, 44, 0.3);
+    animation: fadeIn 0.3s ease;
 }
 
 .navbar .container {
@@ -218,6 +480,41 @@ section {
     padding: 90px 20px 60px;
 }
 
+/* Add animated gradient overlay to hero */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(5, 6, 11, 0.3) 0%,
+        rgba(201, 144, 44, 0.06) 50%,
+        rgba(5, 6, 11, 0.3) 100%
+    );
+    background-size: 200% 200%;
+    animation: gradient-shift 15s ease infinite;
+    z-index: 0;
+}
+
+/* Animated particles effect */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(201, 144, 44, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(201, 144, 44, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(201, 144, 44, 0.03) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    z-index: 0;
+}
+
 
 
 .hero-content {
@@ -256,6 +553,31 @@ section {
     font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Animated shimmer effect on buttons */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.5s;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn-primary {
@@ -268,8 +590,49 @@ section {
 
 .btn-primary:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(201, 144, 44, 0.5);
+    box-shadow: 0 10px 30px rgba(201, 144, 44, 0.5), 0 0 20px rgba(201, 144, 44, 0.4);
     background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.btn-primary:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* ===========================
+   HERO MOBILE RESPONSIVE
+   =========================== */
+
+/* Use mobile-optimized hero image on mobile devices */
+@media (max-width: 768px) {
+    .hero {
+        background-image: url('../../banner/mobile.webp');
+        background-position: center center;
+        background-size: cover;
+        min-height: 100vh;
+        min-height: 100svh; /* Use small viewport height for mobile browsers */
+        height: 100vh;
+        height: 100svh;
+        align-items: flex-end;
+        padding: 90px 20px 80px;
+    }
+    
+    .hero-content {
+        padding-bottom: 60px;
+    }
+}
+
+/* For very small mobile screens in portrait */
+@media (max-width: 480px) and (orientation: portrait) {
+    .hero {
+        background-image: url('../../banner/mobile.webp');
+        background-position: center center;
+        background-size: cover;
+        min-height: 100vh;
+        min-height: 100svh;
+        height: 100vh;
+        height: 100svh;
+    }
 }
 
 /* ===========================
@@ -314,32 +677,83 @@ section {
     padding: 35px 30px;
     background: linear-gradient(135deg, #ffffff 0%, var(--bg-light) 100%);
     border-radius: 16px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(201, 144, 44, 0.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add shimmer effect on hover */
+.highlight-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(201, 144, 44, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
 }
 
 .highlight-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(201, 144, 44, 0.2);
-    border-color: rgba(201, 144, 44, 0.3);
+    transform: translateY(-12px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(201, 144, 44, 0.3);
+    border-color: rgba(201, 144, 44, 0.4);
+}
+
+.highlight-card:hover::before {
+    opacity: 1;
+    animation: shimmer 1.5s ease-in-out infinite;
 }
 
 .highlight-icon {
     font-size: 2.5rem;
     color: var(--gold);
     margin-bottom: 15px;
+    transition: all 0.4s ease;
+}
+
+.highlight-card:hover .highlight-icon {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 0 10px rgba(201, 144, 44, 0.5));
+}
+
+/* Touch-friendly highlight card effects */
+.highlight-card:active {
+    transform: translateY(-12px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(201, 144, 44, 0.3);
+    border-color: rgba(201, 144, 44, 0.4);
+}
+
+.highlight-card:active::before {
+    opacity: 1;
+}
+
+.highlight-card:active .highlight-icon {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 0 10px rgba(201, 144, 44, 0.5));
 }
 
 .highlight-card h3 {
     font-size: 1.3rem;
     margin-bottom: 10px;
     color: var(--text-dark);
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .highlight-card p {
     color: var(--text-light);
     font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 /* ===========================
@@ -364,12 +778,25 @@ section {
     border: 2px solid var(--border-color);
     border-radius: 8px;
     outline: none;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
 }
 
 .search-input:focus {
     border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201, 144, 44, 0.1);
+    box-shadow: 0 0 0 4px rgba(201, 144, 44, 0.15), 0 4px 20px rgba(201, 144, 44, 0.2);
+    transform: translateY(-2px);
+    background: #ffffff;
+}
+
+.search-input::placeholder {
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.search-input:focus::placeholder {
+    transform: translateX(10px);
+    opacity: 0.6;
 }
 
 .category-filters {
@@ -390,13 +817,34 @@ section {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: capitalize;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ripple effect background */
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(201, 144, 44, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
 }
 
 .filter-btn:hover {
     border-color: var(--gold);
     color: var(--gold);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(201, 144, 44, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(201, 144, 44, 0.3);
+}
+
+.filter-btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .filter-btn.active {
@@ -404,8 +852,22 @@ section {
     color: var(--black);
     border-color: var(--gold);
     font-weight: 600;
-    box-shadow: 0 4px 15px rgba(201, 144, 44, 0.4);
+    box-shadow: 0 4px 15px rgba(201, 144, 44, 0.4), 0 0 20px rgba(201, 144, 44, 0.2);
     transform: scale(1.05);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Touch-friendly filter button effects */
+.filter-btn:active {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(201, 144, 44, 0.3);
+}
+
+.filter-btn:active::before {
+    width: 300px;
+    height: 300px;
 }
 
 .product-count {
@@ -450,6 +912,22 @@ section {
     cursor: pointer;
     contain: layout style paint;
     border: 1px solid rgba(201, 144, 44, 0.1);
+    position: relative;
+}
+
+/* Add glow effect on hover */
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
 }
 
 .product-card * {
@@ -457,10 +935,49 @@ section {
 }
 
 .product-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(201, 144, 44, 0.25), 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 
+        0 20px 40px rgba(201, 144, 44, 0.25), 
+        0 10px 20px rgba(0, 0, 0, 0.1),
+        0 0 30px rgba(201, 144, 44, 0.2);
     border-color: rgba(201, 144, 44, 0.3);
     will-change: transform;
+}
+
+.product-card:hover::before {
+    opacity: 0.6;
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Touch-friendly effects for mobile */
+.product-card:active {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 
+        0 20px 40px rgba(201, 144, 44, 0.25), 
+        0 10px 20px rgba(0, 0, 0, 0.1),
+        0 0 30px rgba(201, 144, 44, 0.2);
+    border-color: rgba(201, 144, 44, 0.3);
+}
+
+.product-card:active::before {
+    opacity: 0.6;
+}
+
+.product-card:active .product-image {
+    transform: scale(1.15);
+}
+
+.product-card:active .product-price {
+    text-shadow: 0 0 20px rgba(201, 144, 44, 0.6);
+    transform: scale(1.1);
+}
+
+.product-card:active .product-name {
+    color: var(--gold);
+}
+
+.product-card:active .product-brand {
+    color: var(--gold-dark);
 }
 
 .product-image-container {
@@ -469,6 +986,30 @@ section {
     height: 280px;
     overflow: hidden;
     background-color: var(--bg-light);
+}
+
+/* Add overlay gradient on hover */
+.product-image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(201, 144, 44, 0.2) 0%,
+        transparent 50%,
+        rgba(201, 144, 44, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.product-card:hover .product-image-container::after {
+    opacity: 1;
 }
 
 .image-placeholder {
@@ -498,7 +1039,7 @@ section {
     height: 280px;
     object-fit: cover;
     background-color: var(--bg-light);
-    transition: opacity 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     opacity: 0;
     position: relative;
@@ -511,6 +1052,11 @@ section {
 
 .product-image.loaded~.image-placeholder {
     display: none;
+}
+
+/* Image zoom on card hover */
+.product-card:hover .product-image {
+    transform: scale(1.15);
 }
 
 .image-dots {
@@ -618,12 +1164,47 @@ section {
 .contact-card {
     max-width: 700px;
     margin: 0 auto;
-    background: linear-gradient(135deg, var(--bg-light) 0%, #ffffff 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 245, 0.95) 100%);
     padding: 50px;
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(201, 144, 44, 0.1);
+    border: 1px solid rgba(201, 144, 44, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated gradient background */
+.contact-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(201, 144, 44, 0.1) 0%, transparent 70%);
+    animation: float 15s ease-in-out infinite;
+    z-index: 0;
+}
+
+.contact-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(201, 144, 44, 0.2);
+    border-color: rgba(201, 144, 44, 0.4);
+}
+
+/* Touch-friendly contact card effect */
+.contact-card:active {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(201, 144, 44, 0.2);
+    border-color: rgba(201, 144, 44, 0.4);
 }
 
 .contact-info {
@@ -659,7 +1240,7 @@ section {
     width: 0;
     height: 2px;
     background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
-    transition: width 0.3s ease;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contact-item a:hover::after {
@@ -668,6 +1249,19 @@ section {
 
 .contact-item a:hover {
     color: var(--gold-light);
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(201, 144, 44, 0.3);
+}
+
+/* Touch-friendly contact link effects */
+.contact-item a:active {
+    color: var(--gold-light);
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(201, 144, 44, 0.3);
+}
+
+.contact-item a:active::after {
+    width: 100%;
 }
 
 .contact-note {
@@ -836,8 +1430,10 @@ section {
         background-size: cover;
         background-position: center center;
         background-color: var(--black);
-        min-height: 60vh;
-        height: auto;
+        min-height: 100vh;
+        min-height: 100svh;
+        height: 100vh;
+        height: 100svh;
     }
 
     .hero-logo {
@@ -894,11 +1490,14 @@ section {
 
     .hero {
         background-image: url('../../banner/mobile.webp');
-        min-height: 50vh;
+        min-height: 100vh;
+        min-height: 100svh;
+        height: 100vh;
+        height: 100svh;
         background-size: cover;
         background-position: center center;
-        align-items: center;
-        padding: 90px 20px 40px;
+        align-items: flex-end;
+        padding: 90px 20px 60px;
     }
 
     .btn {
@@ -1173,4 +1772,569 @@ section {
     .modal-price {
         font-size: 1.5rem;
     }
+}
+
+/* ===========================
+   MODERN ENHANCEMENTS
+   =========================== */
+
+/* Smooth scrollbar styling (webkit browsers) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    border-radius: 6px;
+    border: 2px solid var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+}
+
+/* Selection styling */
+::selection {
+    background-color: var(--gold);
+    color: var(--black);
+}
+
+::-moz-selection {
+    background-color: var(--gold);
+    color: var(--black);
+}
+
+/* Add subtle gradient text to brand name */
+.nav-brand h1 {
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.navbar.scrolled .nav-brand h1 {
+    background: linear-gradient(135deg, var(--text-dark) 0%, var(--gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Add glow to price on hover */
+.product-card:hover .product-price {
+    text-shadow: 0 0 20px rgba(201, 144, 44, 0.6);
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+/* Add smooth focus rings */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid rgba(201, 144, 44, 0.5);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Loading skeleton pulse */
+.loading {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Enhance footer with gradient border */
+.footer {
+    background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        var(--gold) 0%, 
+        var(--gold-light) 25%, 
+        var(--gold) 50%, 
+        var(--gold-light) 75%, 
+        var(--gold) 100%
+    );
+    background-size: 200% 100%;
+    animation: gradient-shift 5s ease infinite;
+}
+
+/* Add hover effect to nav links */
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(201, 144, 44, 0.1);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.nav-link:hover::before {
+    left: 0;
+}
+
+/* Enhance product info section */
+.product-info {
+    position: relative;
+}
+
+.product-card:hover .product-name {
+    color: var(--gold);
+    transition: color 0.3s ease;
+}
+
+.product-card:hover .product-brand {
+    color: var(--gold-dark);
+    transition: color 0.3s ease;
+}
+
+/* Add breathing animation to active filter */
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1.05);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+/* Enhance about section background */
+.about {
+    background: linear-gradient(180deg, var(--bg-white) 0%, var(--bg-light) 50%, #f8f8f8 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 40%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(201, 144, 44, 0.05) 0%, transparent 70%);
+    animation: float 20s ease-in-out infinite;
+}
+
+/* Catalog section enhancement */
+.catalog {
+    background: linear-gradient(180deg, var(--bg-light) 0%, #f8f8f8 50%, var(--bg-white) 100%);
+    position: relative;
+}
+
+.catalog::before {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -10%;
+    width: 40%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(201, 144, 44, 0.05) 0%, transparent 70%);
+    animation: float 25s ease-in-out infinite reverse;
+}
+
+/* Add micro-interaction to image dots */
+.dot {
+    position: relative;
+}
+
+.dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 20px;
+    height: 20px;
+    background: rgba(201, 144, 44, 0.3);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.dot.active::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Enhance modal backdrop */
+.modal {
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Add entrance animation for modal content */
+.modal-content {
+    animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Performance optimization: GPU acceleration */
+.product-card,
+.btn,
+.highlight-card,
+.filter-btn,
+.nav-link {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* ===========================
+   RIPPLE EFFECT
+   =========================== */
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ===========================
+   MOBILE TOUCH OPTIMIZATIONS
+   =========================== */
+
+/* Enable smooth touch scrolling on mobile */
+@media (max-width: 768px) {
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Ensure animations are smooth on mobile */
+    .product-card,
+    .highlight-card,
+    .filter-btn,
+    .btn {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    /* Reduce animation intensity on mobile for better performance */
+    .hero::before {
+        animation: gradient-shift 20s ease infinite;
+    }
+    
+    .hero::after {
+        animation: float 25s ease-in-out infinite;
+    }
+    
+    /* Optimize scroll animations for mobile - faster */
+    .section-title,
+    .about-text,
+    .highlight-card,
+    .product-card,
+    .contact-card {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    /* Better touch targets on mobile */
+    .nav-link {
+        padding: 15px 0;
+        font-size: 1.1rem;
+    }
+    
+    .filter-btn {
+        padding: 14px 30px;
+        font-size: 1rem;
+        min-width: 100px;
+    }
+    
+    /* Enhance button visibility on mobile */
+    .btn-primary {
+        padding: 16px 45px;
+        font-size: 1.05rem;
+        box-shadow: 0 6px 20px rgba(201, 144, 44, 0.4);
+    }
+    
+    /* Optimize product card layout for mobile */
+    .product-image-container {
+        height: 250px;
+    }
+    
+    .product-image {
+        height: 250px;
+    }
+    
+    /* Better spacing for mobile */
+    section {
+        padding: 70px 0;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+    }
+    
+    /* Enhance contact card on mobile */
+    .contact-card {
+        padding: 35px 25px;
+        border-radius: 16px;
+    }
+    
+    /* Better product info visibility */
+    .product-info {
+        padding: 18px;
+    }
+    
+    .product-name {
+        font-size: 1.15rem;
+    }
+    
+    .product-price {
+        font-size: 1.4rem;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+    .filter-btn {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+    
+    .product-image-container,
+    .product-image {
+        height: 220px;
+    }
+}
+
+/* ===========================
+   ADVANCED EFFECTS
+   =========================== */
+
+/* Cursor glow effect (desktop only) */
+@media (min-width: 769px) {
+    body::before {
+        content: '';
+        position: fixed;
+        left: var(--cursor-x, 50%);
+        top: var(--cursor-y, 50%);
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(201, 144, 44, 0.08) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 9998;
+        opacity: 0;
+        transition: opacity 0.3s ease, left 0.15s ease, top 0.15s ease;
+        border-radius: 50%;
+        mix-blend-mode: screen;
+    }
+    
+    body.cursor-active::before {
+        opacity: 1;
+    }
+}
+
+/* Magnetic button effect for primary buttons */
+.btn-primary {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Text shimmer effect on section titles */
+.section-title {
+    background: linear-gradient(
+        90deg,
+        var(--text-dark) 0%,
+        var(--gold) 25%,
+        var(--text-dark) 50%,
+        var(--gold) 75%,
+        var(--text-dark) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: text-shimmer 8s ease-in-out infinite;
+}
+
+@keyframes text-shimmer {
+    0%, 100% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
+}
+
+/* Product card shine on hover */
+@media (min-width: 769px) {
+    .product-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 100%
+        );
+        transform: skewX(-25deg);
+        transition: left 0.7s ease;
+        pointer-events: none;
+        z-index: 10;
+    }
+    
+    .product-card:hover::after {
+        left: 150%;
+    }
+}
+
+/* Enhanced button press effect */
+.btn-primary:active,
+.filter-btn:active {
+    transform: scale(0.95);
+}
+
+/* Smooth color transitions for links */
+a {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Enhanced footer links */
+.footer a {
+    position: relative;
+    display: inline-block;
+}
+
+.footer a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+}
+
+.footer a:hover::after {
+    width: 100%;
+}
+
+/* Stagger animation for product grid - faster */
+.product-card {
+    animation: fadeInUp 0.35s ease-out backwards;
+}
+
+.product-card:nth-child(1) { animation-delay: 0s; }
+.product-card:nth-child(2) { animation-delay: 0.03s; }
+.product-card:nth-child(3) { animation-delay: 0.06s; }
+.product-card:nth-child(4) { animation-delay: 0.09s; }
+.product-card:nth-child(5) { animation-delay: 0.12s; }
+.product-card:nth-child(6) { animation-delay: 0.15s; }
+.product-card:nth-child(7) { animation-delay: 0.18s; }
+.product-card:nth-child(8) { animation-delay: 0.21s; }
+
+/* Remove stagger for products beyond the first 8 for faster loading */
+.product-card:nth-child(n+9) { 
+    animation-delay: 0.21s; 
+}
+
+/* Smooth opacity transition for images */
+img {
+    transition: opacity 0.3s ease;
+}
+
+/* Enhanced brand logo animation */
+.nav-brand {
+    transition: all 0.3s ease;
+}
+
+.nav-brand:hover {
+    transform: scale(1.02);
+}
+
+/* Subtle parallax on about section */
+@media (min-width: 769px) {
+    .about {
+        position: relative;
+        transform-style: preserve-3d;
+    }
+}
+
+/* Add depth to highlight cards with shadow layers */
+.highlight-card {
+    position: relative;
+}
+
+.highlight-card::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: transparent;
+    border-radius: 16px;
+    box-shadow: 0 0 0 1px rgba(201, 144, 44, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.highlight-card:hover::after {
+    opacity: 1;
+}
+
+/* Glowing nav links */
+@media (min-width: 769px) {
+    .nav-link:hover {
+        text-shadow: 0 0 8px rgba(201, 144, 44, 0.4);
+    }
+}
+
+/* Price tag enhancement */
+.product-price {
+    position: relative;
+    display: inline-block;
+}
+
+.product-price::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-price::before {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Breathing animation for loader */
+.loader-spinner {
+    animation: spin 1s linear infinite, glow 2s ease-in-out infinite;
 }
