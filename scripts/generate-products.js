@@ -63,20 +63,39 @@ function generateProductCatalog() {
                             primaryImage: productImage.imagePath
                         };
 
-                        // Check for details file (using productKey without view identifier)
-                        const detailsFile = `${productImage.brand.toLowerCase().replace(/\s+/g, '-')}--${productImage.name.toLowerCase().replace(/\s+/g, '-')}--${productImage.price}.txt`;
-                        const detailsPath = path.join(categoryPath, detailsFile);
-
-                        console.log(`   Looking for details: ${detailsFile}`);
-
-                        if (fs.existsSync(detailsPath)) {
-                            const details = parseProductDetails(detailsPath);
-                            if (details) {
-                                product.description = details.description;
-                                product.sizes = details.sizes;
-                                product.notes = details.notes;
-                                console.log(`   ✓ Loaded product details`);
+                        // Check for details file (try multiple naming formats)
+                        const brand_normalized = productImage.brand.toLowerCase().replace(/\s+/g, '-');
+                        const name_normalized = productImage.name.toLowerCase().replace(/\s+/g, '-');
+                        const price_int = Math.floor(productImage.price);
+                        const price_decimal = productImage.price.toFixed(2);
+                        
+                        // Try different filename formats with both price formats
+                        const possibleDetailsFiles = [
+                            `${brand_normalized}--${name_normalized}--${price_decimal}.txt`,  // brand--name--120.00.txt
+                            `${brand_normalized}--${name_normalized}--${price_int}.txt`,      // brand--name--120.txt
+                            `${brand_normalized}--${price_decimal}.txt`,                       // brand--120.00.txt (when brand === name)
+                            `${brand_normalized}--${price_int}.txt`,                           // brand--120.txt
+                        ];
+                        
+                        let detailsLoaded = false;
+                        for (const detailsFile of possibleDetailsFiles) {
+                            const detailsPath = path.join(categoryPath, detailsFile);
+                            
+                            if (fs.existsSync(detailsPath)) {
+                                console.log(`   ✓ Found details: ${detailsFile}`);
+                                const details = parseProductDetails(detailsPath);
+                                if (details) {
+                                    product.description = details.description;
+                                    product.sizes = details.sizes;
+                                    product.notes = details.notes;
+                                    detailsLoaded = true;
+                                    break;
+                                }
                             }
+                        }
+                        
+                        if (!detailsLoaded) {
+                            console.log(`   ⚠️  No details file found for ${brand_normalized}`);
                         }
 
                         productMap.set(productKey, product);
@@ -123,18 +142,39 @@ function parseProductFromFilename(filename, category) {
         // Split by delimiter '--'
         const parts = nameWithoutExt.split('--');
 
-        // Support both formats:
-        // brand--name--price.ext (3 parts)
+        // Support multiple formats:
+        // brand--price--view.ext (3 parts) - using brand as name
         // brand--name--price--view.ext (4 parts)
-        if (parts.length < 3 || parts.length > 4) {
-            console.warn(`Invalid format: ${filename} (expected: brand--name--price[--view].ext)`);
+        // brand--name--price.ext (3 parts, no view)
+        
+        let brand, name, priceStr, view;
+        
+        if (parts.length === 3) {
+            // Check if second part is a price (format: brand--price--view)
+            const secondPartAsPrice = parseFloat(parts[1]);
+            if (!isNaN(secondPartAsPrice) && secondPartAsPrice > 0) {
+                // Format: brand--price--view
+                brand = parts[0];
+                name = parts[0]; // Use brand as name
+                priceStr = parts[1];
+                view = parts[2] || 'default';
+            } else {
+                // Format: brand--name--price
+                brand = parts[0];
+                name = parts[1];
+                priceStr = parts[2];
+                view = 'default';
+            }
+        } else if (parts.length === 4) {
+            // Format: brand--name--price--view
+            brand = parts[0];
+            name = parts[1];
+            priceStr = parts[2];
+            view = parts[3];
+        } else {
+            console.warn(`Invalid format: ${filename} (expected 3 or 4 parts)`);
             return null;
         }
-
-        const brand = parts[0];
-        const name = parts[1];
-        const priceStr = parts[2];
-        const view = parts[3] || 'default'; // Optional view identifier
 
         // Validate price
         const price = parseFloat(priceStr);

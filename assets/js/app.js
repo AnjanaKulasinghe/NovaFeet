@@ -708,6 +708,13 @@ function observeProductCards() {
         // Observe the card
         scrollAnimationObserver.observe(card);
     });
+}
+
+// ===========================
+// RIPPLE EFFECT
+// ===========================
+
+function addRippleEffect() {
     const buttons = document.querySelectorAll('.btn, .filter-btn');
 
     buttons.forEach(button => {
