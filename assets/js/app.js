@@ -7,6 +7,7 @@ let filteredProducts = [];
 let currentCategory = 'all';
 let displayedProductsCount = 0;
 const PRODUCTS_PER_PAGE = 8;
+let scrollAnimationObserver = null; // Global observer for scroll animations
 
 const productGrid = document.getElementById('productGrid');
 const categoryFilters = document.getElementById('categoryFilters');
@@ -23,13 +24,13 @@ const seeMoreBtn = document.getElementById('seeMoreBtn');
 // ===========================
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadProducts();
     setupEventListeners();
-    initScrollAnimations();
-    hidePageLoader();
     initScrollProgress();
     initBackToTop();
     initCursorGlow();
+    initScrollAnimations(); // Initialize observer first
+    loadProducts(); // Then load products
+    hidePageLoader();
 });
 
 // ===========================
@@ -186,6 +187,9 @@ function renderProducts() {
     } else {
         seeMoreContainer.style.display = 'none';
     }
+
+    // Observe newly rendered product cards for scroll animations
+    observeProductCards();
 }
 
 // ===========================
@@ -604,19 +608,19 @@ function initScrollAnimations() {
         rootMargin: '0px 0px 100px 0px' // Trigger 100px before entering viewport
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    scrollAnimationObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate-visible');
                 // Optional: Unobserve after animation to improve performance
-                observer.unobserve(entry.target);
+                scrollAnimationObserver.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observe elements for animation
+    // Observe elements for animation (excluding product-card which will be added dynamically)
     const animateElements = document.querySelectorAll(
-        '.section-title, .about-text, .highlight-card, .product-card, .contact-card, .hero-content'
+        '.section-title, .about-text, .highlight-card, .contact-card, .hero-content'
     );
 
     animateElements.forEach((el, index) => {
@@ -626,7 +630,7 @@ function initScrollAnimations() {
         // Faster animations with minimal stagger
         const staggerDelay = index < 4 ? index * 0.03 : 0.03; // Max 0.12s stagger
         el.style.transition = `opacity 0.35s ease ${staggerDelay}s, transform 0.35s ease ${staggerDelay}s`;
-        observer.observe(el);
+        scrollAnimationObserver.observe(el);
     });
 
     // Make elements visible when in viewport
@@ -687,10 +691,23 @@ function initScrollAnimations() {
 }
 
 // ===========================
-// RIPPLE EFFECT
+// OBSERVE NEW PRODUCT CARDS
 // ===========================
 
-function addRippleEffect() {
+function observeProductCards() {
+    if (!scrollAnimationObserver) return;
+
+    // Observe all product cards
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach((card) => {
+        // Set initial state
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(15px)';
+        card.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+
+        // Observe the card
+        scrollAnimationObserver.observe(card);
+    });
     const buttons = document.querySelectorAll('.btn, .filter-btn');
 
     buttons.forEach(button => {
