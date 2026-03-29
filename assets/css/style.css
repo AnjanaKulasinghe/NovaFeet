@@ -23,7 +23,7 @@
     --border-color: #e5e7eb;
     --accent-color: #c9902c;
     --success-color: #c9902c;
-    
+
     /* Modern gradients and effects */
     --gradient-gold: linear-gradient(135deg, #c9902c 0%, #d4a03a 50%, #f4d06f 100%);
     --gradient-dark: linear-gradient(135deg, #05060b 0%, #1a1b20 100%);
@@ -89,6 +89,7 @@ body {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -176,8 +177,10 @@ body {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(15px); /* Reduced from 40px for faster feel */
+        transform: translateY(15px);
+        /* Reduced from 40px for faster feel */
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -188,6 +191,7 @@ body {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -196,8 +200,10 @@ body {
 @keyframes slideInLeft {
     from {
         opacity: 0;
-        transform: translateX(-15px); /* Reduced from -40px */
+        transform: translateX(-15px);
+        /* Reduced from -40px */
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -207,8 +213,10 @@ body {
 @keyframes slideInRight {
     from {
         opacity: 0;
-        transform: translateX(15px); /* Reduced from 40px */
+        transform: translateX(15px);
+        /* Reduced from 40px */
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -220,6 +228,7 @@ body {
         opacity: 0;
         transform: scale(0.8);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -227,18 +236,24 @@ body {
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px);
     }
+
     50% {
         transform: translateY(-10px);
     }
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
@@ -248,6 +263,7 @@ body {
     0% {
         background-position: -1000px 0;
     }
+
     100% {
         background-position: 1000px 0;
     }
@@ -257,18 +273,23 @@ body {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
 }
 
 @keyframes glow {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 0 20px rgba(201, 144, 44, 0.4);
     }
+
     50% {
         box-shadow: 0 0 40px rgba(201, 144, 44, 0.8), 0 0 60px rgba(201, 144, 44, 0.4);
     }
@@ -488,12 +509,10 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(5, 6, 11, 0.3) 0%,
-        rgba(201, 144, 44, 0.06) 50%,
-        rgba(5, 6, 11, 0.3) 100%
-    );
+    background: linear-gradient(135deg,
+            rgba(5, 6, 11, 0.3) 0%,
+            rgba(201, 144, 44, 0.06) 50%,
+            rgba(5, 6, 11, 0.3) 100%);
     background-size: 200% 200%;
     animation: gradient-shift 15s ease infinite;
     z-index: 0;
@@ -507,7 +526,7 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
         radial-gradient(circle at 20% 30%, rgba(201, 144, 44, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 70%, rgba(201, 144, 44, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 40% 80%, rgba(201, 144, 44, 0.03) 0%, transparent 50%);
@@ -566,12 +585,10 @@ section {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-    );
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
     transition: left 0.5s;
     z-index: -1;
 }
@@ -610,13 +627,14 @@ section {
         background-position: center center;
         background-size: cover;
         min-height: 100vh;
-        min-height: 100svh; /* Use small viewport height for mobile browsers */
+        min-height: 100svh;
+        /* Use small viewport height for mobile browsers */
         height: 100vh;
         height: 100svh;
         align-items: flex-end;
         padding: 90px 20px 80px;
     }
-    
+
     .hero-content {
         padding-bottom: 60px;
     }
@@ -692,12 +710,10 @@ section {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent 30%,
-        rgba(201, 144, 44, 0.1) 50%,
-        transparent 70%
-    );
+    background: linear-gradient(45deg,
+            transparent 30%,
+            rgba(201, 144, 44, 0.1) 50%,
+            transparent 70%);
     transform: rotate(45deg);
     transition: all 0.6s ease;
     opacity: 0;
@@ -936,8 +952,8 @@ section {
 
 .product-card:hover {
     transform: translateY(-12px) scale(1.03);
-    box-shadow: 
-        0 20px 40px rgba(201, 144, 44, 0.25), 
+    box-shadow:
+        0 20px 40px rgba(201, 144, 44, 0.25),
         0 10px 20px rgba(0, 0, 0, 0.1),
         0 0 30px rgba(201, 144, 44, 0.2);
     border-color: rgba(201, 144, 44, 0.3);
@@ -952,8 +968,8 @@ section {
 /* Touch-friendly effects for mobile */
 .product-card:active {
     transform: translateY(-12px) scale(1.03);
-    box-shadow: 
-        0 20px 40px rgba(201, 144, 44, 0.25), 
+    box-shadow:
+        0 20px 40px rgba(201, 144, 44, 0.25),
         0 10px 20px rgba(0, 0, 0, 0.1),
         0 0 30px rgba(201, 144, 44, 0.2);
     border-color: rgba(201, 144, 44, 0.3);
@@ -996,12 +1012,10 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(201, 144, 44, 0.2) 0%,
-        transparent 50%,
-        rgba(201, 144, 44, 0.1) 100%
-    );
+    background: linear-gradient(135deg,
+            rgba(201, 144, 44, 0.2) 0%,
+            transparent 50%,
+            rgba(201, 144, 44, 0.1) 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: 3;
@@ -1189,7 +1203,7 @@ section {
     z-index: 0;
 }
 
-.contact-card > * {
+.contact-card>* {
     position: relative;
     z-index: 1;
 }
@@ -1857,13 +1871,12 @@ input:focus-visible {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, 
-        var(--gold) 0%, 
-        var(--gold-light) 25%, 
-        var(--gold) 50%, 
-        var(--gold-light) 75%, 
-        var(--gold) 100%
-    );
+    background: linear-gradient(90deg,
+            var(--gold) 0%,
+            var(--gold-light) 25%,
+            var(--gold) 50%,
+            var(--gold-light) 75%,
+            var(--gold) 100%);
     background-size: 200% 100%;
     animation: gradient-shift 5s ease infinite;
 }
@@ -1907,9 +1920,12 @@ input:focus-visible {
 
 /* Add breathing animation to active filter */
 @keyframes breathe {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1.05);
     }
+
     50% {
         transform: scale(1.08);
     }
@@ -2023,7 +2039,7 @@ input:focus-visible {
     body {
         -webkit-overflow-scrolling: touch;
     }
-    
+
     /* Ensure animations are smooth on mobile */
     .product-card,
     .highlight-card,
@@ -2032,16 +2048,16 @@ input:focus-visible {
         -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
     }
-    
+
     /* Reduce animation intensity on mobile for better performance */
     .hero::before {
         animation: gradient-shift 20s ease infinite;
     }
-    
+
     .hero::after {
         animation: float 25s ease-in-out infinite;
     }
-    
+
     /* Optimize scroll animations for mobile - faster */
     .section-title,
     .about-text,
@@ -2050,60 +2066,60 @@ input:focus-visible {
     .contact-card {
         transition: opacity 0.3s ease, transform 0.3s ease;
     }
-    
+
     /* Better touch targets on mobile */
     .nav-link {
         padding: 15px 0;
         font-size: 1.1rem;
     }
-    
+
     .filter-btn {
         padding: 14px 30px;
         font-size: 1rem;
         min-width: 100px;
     }
-    
+
     /* Enhance button visibility on mobile */
     .btn-primary {
         padding: 16px 45px;
         font-size: 1.05rem;
         box-shadow: 0 6px 20px rgba(201, 144, 44, 0.4);
     }
-    
+
     /* Optimize product card layout for mobile */
     .product-image-container {
         height: 250px;
     }
-    
+
     .product-image {
         height: 250px;
     }
-    
+
     /* Better spacing for mobile */
     section {
         padding: 70px 0;
     }
-    
+
     .section-title {
         font-size: 2.2rem;
         margin-bottom: 40px;
     }
-    
+
     /* Enhance contact card on mobile */
     .contact-card {
         padding: 35px 25px;
         border-radius: 16px;
     }
-    
+
     /* Better product info visibility */
     .product-info {
         padding: 18px;
     }
-    
+
     .product-name {
         font-size: 1.15rem;
     }
-    
+
     .product-price {
         font-size: 1.4rem;
     }
@@ -2115,7 +2131,7 @@ input:focus-visible {
         padding: 12px 24px;
         font-size: 0.95rem;
     }
-    
+
     .product-image-container,
     .product-image {
         height: 220px;
@@ -2144,7 +2160,7 @@ input:focus-visible {
         border-radius: 50%;
         mix-blend-mode: screen;
     }
-    
+
     body.cursor-active::before {
         opacity: 1;
     }
@@ -2158,14 +2174,12 @@ input:focus-visible {
 
 /* Text shimmer effect on section titles */
 .section-title {
-    background: linear-gradient(
-        90deg,
-        var(--text-dark) 0%,
-        var(--gold) 25%,
-        var(--text-dark) 50%,
-        var(--gold) 75%,
-        var(--text-dark) 100%
-    );
+    background: linear-gradient(90deg,
+            var(--text-dark) 0%,
+            var(--gold) 25%,
+            var(--text-dark) 50%,
+            var(--gold) 75%,
+            var(--text-dark) 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -2174,9 +2188,12 @@ input:focus-visible {
 }
 
 @keyframes text-shimmer {
-    0%, 100% {
+
+    0%,
+    100% {
         background-position: 0% center;
     }
+
     50% {
         background-position: 100% center;
     }
@@ -2191,18 +2208,16 @@ input:focus-visible {
         left: -100%;
         width: 50%;
         height: 100%;
-        background: linear-gradient(
-            90deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.3) 50%,
-            transparent 100%
-        );
+        background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                transparent 100%);
         transform: skewX(-25deg);
         transition: left 0.7s ease;
         pointer-events: none;
         z-index: 10;
     }
-    
+
     .product-card:hover::after {
         left: 150%;
     }
@@ -2245,18 +2260,41 @@ a {
     animation: fadeInUp 0.35s ease-out backwards;
 }
 
-.product-card:nth-child(1) { animation-delay: 0s; }
-.product-card:nth-child(2) { animation-delay: 0.03s; }
-.product-card:nth-child(3) { animation-delay: 0.06s; }
-.product-card:nth-child(4) { animation-delay: 0.09s; }
-.product-card:nth-child(5) { animation-delay: 0.12s; }
-.product-card:nth-child(6) { animation-delay: 0.15s; }
-.product-card:nth-child(7) { animation-delay: 0.18s; }
-.product-card:nth-child(8) { animation-delay: 0.21s; }
+.product-card:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.product-card:nth-child(2) {
+    animation-delay: 0.03s;
+}
+
+.product-card:nth-child(3) {
+    animation-delay: 0.06s;
+}
+
+.product-card:nth-child(4) {
+    animation-delay: 0.09s;
+}
+
+.product-card:nth-child(5) {
+    animation-delay: 0.12s;
+}
+
+.product-card:nth-child(6) {
+    animation-delay: 0.15s;
+}
+
+.product-card:nth-child(7) {
+    animation-delay: 0.18s;
+}
+
+.product-card:nth-child(8) {
+    animation-delay: 0.21s;
+}
 
 /* Remove stagger for products beyond the first 8 for faster loading */
-.product-card:nth-child(n+9) { 
-    animation-delay: 0.21s; 
+.product-card:nth-child(n+9) {
+    animation-delay: 0.21s;
 }
 
 /* Smooth opacity transition for images */

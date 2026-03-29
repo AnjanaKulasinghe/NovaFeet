@@ -659,13 +659,13 @@ function initScrollAnimations() {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             const rotateX = (y - centerY) / 20;
             const rotateY = (centerX - x) / 20;
-            
+
             card.style.transform = `
                 translateY(-12px) scale(1.03) 
                 perspective(1000px) 
@@ -692,9 +692,9 @@ function initScrollAnimations() {
 
 function addRippleEffect() {
     const buttons = document.querySelectorAll('.btn, .filter-btn');
-    
+
     buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             // Remove existing ripples
             const existingRipple = this.querySelector('.ripple');
             if (existingRipple) {
@@ -731,15 +731,15 @@ function addRippleEffect() {
 
 function initScrollProgress() {
     const progressBar = document.getElementById('scrollProgress');
-    
+
     if (!progressBar) return;
-    
+
     window.addEventListener('scroll', () => {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight - windowHeight;
         const scrolled = window.scrollY;
         const progress = (scrolled / documentHeight) * 100;
-        
+
         progressBar.style.width = progress + '%';
     });
 }
@@ -750,9 +750,9 @@ function initScrollProgress() {
 
 function initBackToTop() {
     const backToTopBtn = document.getElementById('backToTop');
-    
+
     if (!backToTopBtn) return;
-    
+
     // Show/hide button based on scroll position
     window.addEventListener('scroll', () => {
         if (window.scrollY > 500) {
@@ -761,7 +761,7 @@ function initBackToTop() {
             backToTopBtn.classList.remove('visible');
         }
     });
-    
+
     // Smooth scroll to top
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({
@@ -778,10 +778,10 @@ function initBackToTop() {
 function initCursorGlow() {
     // Only on desktop
     if (window.innerWidth <= 768) return;
-    
+
     // Activate cursor glow
     document.body.classList.add('cursor-active');
-    
+
     // Update cursor glow position smoothly
     document.addEventListener('mousemove', (e) => {
         document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
